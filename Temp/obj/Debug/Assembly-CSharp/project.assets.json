@@ -8,26 +8,23 @@
     ".NETStandard,Version=v2.1": []
   },
   "packageFolders": {
-    "C:\\Users\\carlo\\.nuget\\packages\\": {}
+    "C:\\Users\\janto\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\carlo\\Desktop\\DSH\\PROYECTOS\\Juan 🐴\\Assembly-CSharp.csproj",
+      "projectUniqueName": "D:\\UnityProjects\\Zig_Zag\\Github\\Assembly-CSharp.csproj",
       "projectName": "Assembly-CSharp",
-      "projectPath": "C:\\Users\\carlo\\Desktop\\DSH\\PROYECTOS\\Juan 🐴\\Assembly-CSharp.csproj",
-      "packagesPath": "C:\\Users\\carlo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\carlo\\Desktop\\DSH\\PROYECTOS\\Juan 🐴\\Temp\\obj\\Debug\\Assembly-CSharp\\",
+      "projectPath": "D:\\UnityProjects\\Zig_Zag\\Github\\Assembly-CSharp.csproj",
+      "packagesPath": "C:\\Users\\janto\\.nuget\\packages\\",
+      "outputPath": "D:\\UnityProjects\\Zig_Zag\\Github\\Temp\\obj\\Debug\\Assembly-CSharp\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\carlo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\janto\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.1"
       ],
-      "sources": {
-        "https://api.nuget.org/v3/index.json": {}
-      },
       "frameworks": {
         "netstandard2.1": {
           "targetAlias": "netstandard2.1",

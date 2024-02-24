@@ -1,13 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
     // Global Variables & Objects
     private Vector3 offSet;
-    public Camera camera;
+    public new Camera camera;
 
     // Player Variables & Objects
     private float speedForward = 7f;
@@ -15,10 +13,12 @@ public class Player : MonoBehaviour
     private float xValue, zValue;
     private bool isGoingRight = false;
     private bool playerGrounded = false;
-    public Rigidbody rb; 
+    public Rigidbody rb;
 
     //Floor Variables & Objects
     public GameObject Floor;
+    private float lastJumpObstacleGenerationTime = 0.0f;
+    private float lastObstacleGenerationTime = 0.0f;
     
     void Start()
     {
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
             rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
             playerGrounded = false;
         }
-        
+
         // Turn Input Control
         if (Input.GetKeyUp(KeyCode.Space)) { Turn(); }
     }
@@ -108,12 +108,14 @@ public class Player : MonoBehaviour
         if (random > 0.5f)
         {
             xValue += 5.0f;
-            yield return new WaitForSeconds(0.3f);
-            Instantiate(Floor, new Vector3(xValue, 0, zValue), Quaternion.identity);
-        } else {
+            GeneratePotentialJumpObstacle(random);   // Potencial obstaculo de salto
+            GenerateRandomWalls(Instantiate(Floor, new Vector3(xValue, 0, zValue), Quaternion.identity), false); // Generar paredes aleatorias
+        }
+        else
+        {
             zValue += 5.0f;
-            yield return new WaitForSeconds(0.3f);
-            Instantiate(Floor, new Vector3(xValue, 0, zValue), Quaternion.identity);
+            GeneratePotentialJumpObstacle(random);   // Potencial obstaculo de salto
+            GenerateRandomWalls(Instantiate(Floor, new Vector3(xValue, 0, zValue), Quaternion.identity), true); // Generar paredes aleatorias
         }
         
         yield return new WaitForSeconds(0.5f);
@@ -121,5 +123,129 @@ public class Player : MonoBehaviour
         Floor.gameObject.GetComponent<Rigidbody>().useGravity = true;
         yield return new WaitForSeconds(2.5f);
         Destroy(Floor);
+    }
+
+
+    void GeneratePotentialJumpObstacle(float random)
+    {
+        // Verifica si ha pasado al menos 3 segundos desde la última generación de obstáculos
+        if (Time.time - lastJumpObstacleGenerationTime >= 3.0f)
+        {
+            if (random >= 0.9f) 
+            {
+                xValue += 3.0f;
+            }
+            else if (random <= 0.1f) 
+            {
+                zValue += 3.0f;
+            }
+
+            // Actualiza el tiempo de la última generación de obstáculos
+            lastJumpObstacleGenerationTime = Time.time;
+        }
+    }
+
+    void GenerateRandomWalls(GameObject floor, bool Turn)
+    {
+        // Desactivar todas las paredes primero
+        DeactivateAllWalls(floor);
+
+        // Probabilidad de activar una pared
+        float wallActivationChance = Random.Range(0.0f, 1.0f);
+
+        // Verifica si ha pasado al menos 1 segundos desde la última generación de obstáculos
+        if (Time.time - lastObstacleGenerationTime >= 1.0f)
+        {
+            // Si el número aleatorio es menor que la probabilidad de activación de una sola pared
+            if (wallActivationChance <= 0.3f && !Turn) // 30% de generar una pared normal
+            {
+                // Activar solo una pared
+                ActivateRandomWall(floor);
+            }
+            else if (wallActivationChance <= 0.3f && Turn) // 30% de generar una pared girada
+            {
+                // Activar las paredes izquierda y derecha giradas
+                ActivateTurnRandomWall(floor);
+            }
+            else if (wallActivationChance >= 0.7f && !Turn) // 30% de generar dos paredes normales
+            {
+                // Activar las paredes izquierda y derecha normales
+                ActivateLeftAndRightWalls(floor);
+            }
+            else if (wallActivationChance >= 0.7f && Turn) // 30% de generar tres paredes giradas
+            {
+                // Activar las paredes izquierda y derecha giradas
+                ActivateTurnLeftAndRightWalls(floor);
+            }
+
+            // Actualiza el tiempo de la última generación de obstáculos
+            lastObstacleGenerationTime = Time.time;
+        }
+    }
+
+
+    void ActivateRandomWall(GameObject floor)
+    {
+        // Generar un número aleatorio entre 0 y 3 para seleccionar una pared al azar
+        int randomIndex = Mathf.RoundToInt(Random.Range(0, 3f));
+
+        // Activar la pared seleccionada
+        switch (randomIndex)
+        {
+            case 0:
+                floor.transform.Find("WallLeft").gameObject.SetActive(true);
+                break;
+            case 1:
+                floor.transform.Find("WallCenter").gameObject.SetActive(true);
+                break;
+            case 2:
+                floor.transform.Find("WallRight").gameObject.SetActive(true);
+                break;
+        }
+    }
+
+    void ActivateTurnRandomWall(GameObject floor)
+    {
+        // Generar un número aleatorio entre 0 y 3 para seleccionar una pared al azar
+        int randomIndex = Mathf.RoundToInt(Random.Range(0, 3f));
+
+        // Activar la pared seleccionada
+        switch (randomIndex)
+        {
+            case 0:
+                floor.transform.Find("TurnWallLeft").gameObject.SetActive(true);
+                break;
+            case 1:
+                floor.transform.Find("TurnWallCenter").gameObject.SetActive(true);
+                break;
+            case 2:
+                floor.transform.Find("TurnWallRight").gameObject.SetActive(true);
+                break;
+        }
+    }
+
+    void ActivateLeftAndRightWalls(GameObject floor)
+    {
+        // Activar las paredes izquierda y derecha
+        floor.transform.Find("WallLeft").gameObject.SetActive(true);
+        floor.transform.Find("WallRight").gameObject.SetActive(true);
+    }
+
+    void ActivateTurnLeftAndRightWalls(GameObject floor)
+    {
+        // Activar las paredes izquierda y derecha
+        floor.transform.Find("TurnWallLeft").gameObject.SetActive(true);
+        floor.transform.Find("TurnWallRight").gameObject.SetActive(true);
+    }
+
+    void DeactivateAllWalls(GameObject floor)
+    {
+        // Desactivar todas las paredes
+        floor.transform.Find("WallLeft").gameObject.SetActive(false);
+        floor.transform.Find("WallCenter").gameObject.SetActive(false);
+        floor.transform.Find("WallRight").gameObject.SetActive(false);
+        floor.transform.Find("TurnWallLeft").gameObject.SetActive(false);
+        floor.transform.Find("TurnWallCenter").gameObject.SetActive(false);
+        floor.transform.Find("TurnWallRight").gameObject.SetActive(false);
     }
 }
