@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,15 +10,12 @@ public class Player : MonoBehaviour
     public Camera camera;
 
     // Player Variables & Objects
-    public float speed;
+    private float speedForward = 7f;
+    private float speedSide = 7f;
     private float xValue, zValue;
-    private Vector3 Direction;
     private bool isGoingRight = false;
-    public GameObject PlayerPositionLeft;
-    public GameObject PlayerPositionRight;
-    public GameObject PlayerPositionUp;
-    public GameObject PlayerPositionDown;
-    public GameObject PlayerPositionCenter;
+    private bool playerGrounded = false;
+    public Rigidbody rb; 
 
     //Floor Variables & Objects
     public GameObject Floor;
@@ -27,28 +23,53 @@ public class Player : MonoBehaviour
     void Start()
     {
         offSet = camera.transform.position;
+        rb = GetComponent<Rigidbody>();
         InitialFloor();
-        Direction = Vector3.forward;
     }
 
     void Update()
     {
         camera.transform.position = transform.position + offSet;
-        if (Input.GetKeyUp(KeyCode.Space))
+
+        // Player Movement Control
+        if (!isGoingRight)
         {
-            Turn();
-        }
-        if (Input.GetKeyUp(KeyCode.LeftArrow)) {
-            MovePlayerLane("Left");
-        }
-        if (Input.GetKeyUp(KeyCode.RightArrow)) {
-            MovePlayerLane("Right");
-        }
-        if (Input.GetKeyUp(KeyCode.UpArrow)) {
-            //Jump();
+            // Forward Path Active 
+            transform.Translate(Vector3.forward * speedForward * Time.deltaTime);
+
+            // Side Movement Control
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Translate(Vector3.left * Time.deltaTime * speedSide);
+            }
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.Translate(Vector3.left * Time.deltaTime * speedSide * -1);
+            }
+        } else {
+            // Side Path Active
+            transform.Translate(Vector3.left * speedForward * Time.deltaTime * -1);
+
+            // Side Movement Control
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime * speedSide);
+            }
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime * speedSide * -1);
+            }
         }
 
-        transform.Translate(Direction * speed * Time.deltaTime);
+        // Jump Input Control
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) && playerGrounded)
+        {   
+            rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
+            playerGrounded = false;
+        }
+        
+        // Turn Input Control
+        if (Input.GetKeyUp(KeyCode.Space)) { Turn(); }
     }
 
     void InitialFloor()
@@ -62,26 +83,7 @@ public class Player : MonoBehaviour
 
     void Turn()
     {
-        if (Direction == Vector3.forward)
-        {
-            Direction = Vector3.right;
-            isGoingRight = true;
-        }
-        else 
-        {
-            Direction = Vector3.forward;
-            isGoingRight = false;
-        }
-    }
-
-    void MovePlayerLane(string move)
-    {
-        if (move == "Left")
-        {
-            
-        } else {
-            //Comportamiento yendo a la derecha
-        }
+        if (isGoingRight) { isGoingRight = false; } else if (!isGoingRight) { isGoingRight = true; }
     }
 
     void OnCollisionExit(Collision other)
@@ -89,6 +91,14 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Floor")
         {
             StartCoroutine(DestroyFloor(other.gameObject));
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Floor")
+        {
+            playerGrounded = true;
         }
     }
 
