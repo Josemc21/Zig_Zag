@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     // Global Variables & Objects
     private Vector3 offSet;
     public new Camera camera;
+    //private int TotalMonedas = 0;
 
     // Player Variables & Objects
     private float speedForward = 7f;
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
     private bool isGoingRight = false;
     private bool playerGrounded = false;
     public Rigidbody rb;
+    public AudioClip sonidoMoneda; // Sonido de la moneda
+    private AudioSource audioSource; //Componente Audio Source adjunto al objeto de la moneda
 
     //Floor Variables & Objects
     public GameObject Floor;
@@ -25,6 +28,12 @@ public class Player : MonoBehaviour
         offSet = camera.transform.position;
         rb = GetComponent<Rigidbody>();
         InitialFloor();
+
+        // Obtener la referencia al componente Audio Source
+        audioSource = GetComponent<AudioSource>();
+
+        // Asignar el clip de sonido al Audio Source
+        audioSource.clip = sonidoMoneda;
     }
 
     void Update()
@@ -102,6 +111,23 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Moneda"))
+        {
+            //TotalMonedas++;
+            //Contador.text = "Monedas = " + TotalMonedas";
+
+            // Reproducir el sonido de la moneda
+            audioSource.Play();
+            other.gameObject.SetActive(false);
+            /*if (TotalMonedas == 11)
+            {
+               
+            }*/
+        }
+    }
+
     IEnumerator DestroyFloor(GameObject Floor)
     {
         float random = Random.Range(0.0f, 1.0f);
@@ -109,13 +135,13 @@ public class Player : MonoBehaviour
         {
             xValue += 5.0f;
             GeneratePotentialJumpObstacle(random);   // Potencial obstaculo de salto
-            GenerateRandomWalls(Instantiate(Floor, new Vector3(xValue, 0, zValue), Quaternion.identity), false); // Generar paredes aleatorias
+            GeneratePotentialRandomWalls(Instantiate(Floor, new Vector3(xValue, 0, zValue), Quaternion.identity), false); // Generar paredes aleatorias
         }
         else
         {
             zValue += 5.0f;
             GeneratePotentialJumpObstacle(random);   // Potencial obstaculo de salto
-            GenerateRandomWalls(Instantiate(Floor, new Vector3(xValue, 0, zValue), Quaternion.identity), true); // Generar paredes aleatorias
+            GeneratePotentialRandomWalls(Instantiate(Floor, new Vector3(xValue, 0, zValue), Quaternion.identity), true); // Generar paredes aleatorias
         }
         
         yield return new WaitForSeconds(0.5f);
@@ -145,10 +171,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    void GenerateRandomWalls(GameObject floor, bool Turn)
+    void GeneratePotentialRandomWalls(GameObject floor, bool Turn)
     {
         // Desactivar todas las paredes primero
-        DeactivateAllWalls(floor);
+        if (floor != null)
+        {
+            DeactivateAllWalls(floor);
+            DeactivateAllCoins(floor);
+        }
 
         // Probabilidad de activar una pared
         float wallActivationChance = Random.Range(0.0f, 1.0f);
@@ -177,6 +207,11 @@ public class Player : MonoBehaviour
                 // Activar las paredes izquierda y derecha giradas
                 ActivateTurnLeftAndRightWalls(floor);
             }
+            else 
+            {
+                if(Turn) ActivatePotentialCoin(floor); // Activar moneda
+                else ActivateTurnPotentialCoin(floor); // Activar moneda en suelo yendo a dcha
+            }
 
             // Actualiza el tiempo de la última generación de obstáculos
             lastObstacleGenerationTime = Time.time;
@@ -187,7 +222,7 @@ public class Player : MonoBehaviour
     void ActivateRandomWall(GameObject floor)
     {
         // Generar un número aleatorio entre 0 y 3 para seleccionar una pared al azar
-        int randomIndex = Mathf.RoundToInt(Random.Range(0, 3f));
+        int randomIndex = Mathf.RoundToInt(Random.Range(0, 4f));
 
         // Activar la pared seleccionada
         switch (randomIndex)
@@ -200,6 +235,9 @@ public class Player : MonoBehaviour
                 break;
             case 2:
                 floor.transform.Find("WallRight").gameObject.SetActive(true);
+                break;
+            case 3:
+                floor.transform.Find("LongWall").gameObject.SetActive(true);
                 break;
         }
     }
@@ -238,6 +276,52 @@ public class Player : MonoBehaviour
         floor.transform.Find("TurnWallRight").gameObject.SetActive(true);
     }
 
+    void ActivateLongWall(GameObject floor)
+    {
+        
+        floor.transform.Find("LongWall").gameObject.SetActive(true);
+    }
+
+    void ActivatePotentialCoin(GameObject floor)
+    {
+        // Generar un número aleatorio entre 0 y 3 para seleccionar una pared al azar
+        int randomIndex = Mathf.RoundToInt(Random.Range(0, 3f));
+
+        // Activar la pared seleccionada
+        switch (randomIndex)
+        {
+            case 0:
+                floor.transform.Find("CoinLeft").gameObject.SetActive(true);
+                break;
+            case 1:
+                floor.transform.Find("CoinCenter").gameObject.SetActive(true);
+                break;
+            case 2:
+                floor.transform.Find("CoinRight").gameObject.SetActive(true);
+                break;
+        }
+    }
+
+    void ActivateTurnPotentialCoin(GameObject floor)
+    {
+        // Generar un número aleatorio entre 0 y 3 para seleccionar una pared al azar
+        int randomIndex = Mathf.RoundToInt(Random.Range(0, 3f));
+
+        // Activar la pared seleccionada
+        switch (randomIndex)
+        {
+            case 0:
+                floor.transform.Find("TurnCoinLeft").gameObject.SetActive(true);
+                break;
+            case 1:
+                floor.transform.Find("TurnCoinCenter").gameObject.SetActive(true);
+                break;
+            case 2:
+                floor.transform.Find("TurnCoinRight").gameObject.SetActive(true);
+                break;
+        }
+    }
+
     void DeactivateAllWalls(GameObject floor)
     {
         // Desactivar todas las paredes
@@ -247,5 +331,17 @@ public class Player : MonoBehaviour
         floor.transform.Find("TurnWallLeft").gameObject.SetActive(false);
         floor.transform.Find("TurnWallCenter").gameObject.SetActive(false);
         floor.transform.Find("TurnWallRight").gameObject.SetActive(false);
+        floor.transform.Find("LongWall").gameObject.SetActive(false);
+    }
+
+    void DeactivateAllCoins(GameObject floor)
+    {
+        // Desactivar todas las paredes
+        floor.transform.Find("CoinLeft").gameObject.SetActive(false);
+        floor.transform.Find("CoinCenter").gameObject.SetActive(false);
+        floor.transform.Find("CoinRight").gameObject.SetActive(false);
+        floor.transform.Find("TurnCoinLeft").gameObject.SetActive(false);
+        floor.transform.Find("TurnCoinCenter").gameObject.SetActive(false);
+        floor.transform.Find("TurnCoinRight").gameObject.SetActive(false);
     }
 }
