@@ -131,11 +131,11 @@ public class Player : MonoBehaviour
         // Verifica si ha pasado al menos 3 segundos desde la última generación de obstáculos
         if (Time.time - lastJumpObstacleGenerationTime >= 3.0f)
         {
-            if (random >= 0.9f) 
+            if (random >= 0.8f) // 20% de generar un hueco
             {
                 xValue += 3.0f;
             }
-            else if (random <= 0.1f) 
+            else if (random <= 0.2f) // 20% de generar un hueco
             {
                 zValue += 3.0f;
             }
@@ -157,22 +157,22 @@ public class Player : MonoBehaviour
         if (Time.time - lastObstacleGenerationTime >= 1.0f)
         {
             // Si el número aleatorio es menor que la probabilidad de activación de una sola pared
-            if (wallActivationChance <= 0.3f && !Turn) // 30% de generar una pared normal
+            if (wallActivationChance <= 0.3f && Turn) // 30% de generar una pared normal
             {
                 // Activar solo una pared
                 ActivateRandomWall(floor);
             }
-            else if (wallActivationChance <= 0.3f && Turn) // 30% de generar una pared girada
+            else if (wallActivationChance <= 0.3f && !Turn) // 30% de generar una pared girada
             {
                 // Activar las paredes izquierda y derecha giradas
                 ActivateTurnRandomWall(floor);
             }
-            else if (wallActivationChance >= 0.7f && !Turn) // 30% de generar dos paredes normales
+            else if (wallActivationChance >= 0.7f && Turn) // 30% de generar dos paredes normales
             {
                 // Activar las paredes izquierda y derecha normales
                 ActivateLeftAndRightWalls(floor);
             }
-            else if (wallActivationChance >= 0.7f && Turn) // 30% de generar tres paredes giradas
+            else if (wallActivationChance >= 0.7f && !Turn) // 30% de generar tres paredes giradas
             {
                 // Activar las paredes izquierda y derecha giradas
                 ActivateTurnLeftAndRightWalls(floor);
