@@ -222,7 +222,7 @@ public class Player : MonoBehaviour
     void ActivateRandomWall(GameObject floor)
     {
         // Generar un número aleatorio entre 0 y 3 para seleccionar una pared al azar
-        int randomIndex = Mathf.RoundToInt(Random.Range(0, 4f));
+        int randomIndex = Mathf.RoundToInt(Random.Range(0, 7f));
 
         // Activar la pared seleccionada
         switch (randomIndex)
@@ -239,13 +239,22 @@ public class Player : MonoBehaviour
             case 3:
                 floor.transform.Find("LongWall").gameObject.SetActive(true);
                 break;
+            case 4:
+                floor.transform.Find("TallWallLeft").gameObject.SetActive(true);
+                break;
+            case 5:
+                floor.transform.Find("TallWallCenter").gameObject.SetActive(true);
+                break;
+            case 6:
+                floor.transform.Find("TallWallRight").gameObject.SetActive(true);
+                break;
         }
     }
 
     void ActivateTurnRandomWall(GameObject floor)
     {
         // Generar un número aleatorio entre 0 y 3 para seleccionar una pared al azar
-        int randomIndex = Mathf.RoundToInt(Random.Range(0, 3f));
+        int randomIndex = Mathf.RoundToInt(Random.Range(0, 7f));
 
         // Activar la pared seleccionada
         switch (randomIndex)
@@ -259,27 +268,59 @@ public class Player : MonoBehaviour
             case 2:
                 floor.transform.Find("TurnWallRight").gameObject.SetActive(true);
                 break;
+            case 3:
+                floor.transform.Find("TurnLongWall").gameObject.SetActive(true);
+                break;
+            case 4:
+                floor.transform.Find("TurnTallWallLeft").gameObject.SetActive(true);
+                break;
+            case 5:
+                floor.transform.Find("TurnTallWallCenter").gameObject.SetActive(true);
+                break;
+            case 6:
+                floor.transform.Find("TurnTallWallRight").gameObject.SetActive(true);
+                break;
         }
     }
 
     void ActivateLeftAndRightWalls(GameObject floor)
     {
-        // Activar las paredes izquierda y derecha
-        floor.transform.Find("WallLeft").gameObject.SetActive(true);
-        floor.transform.Find("WallRight").gameObject.SetActive(true);
+        // Probabilidad de activar una pared
+        float chance = Random.Range(0.0f, 1.0f);
+
+        if (chance <= 0.5f) // 50% de generar paredes normales
+        {
+            // Activar las paredes izquierda y derecha
+            floor.transform.Find("WallLeft").gameObject.SetActive(true);
+            floor.transform.Find("WallRight").gameObject.SetActive(true);
+        }
+        else // 50% de generar paredes altas
+        {
+            // Activar las paredes izquierda y derecha altas
+            floor.transform.Find("TallWallLeft").gameObject.SetActive(true);
+            floor.transform.Find("TallWallRight").gameObject.SetActive(true);
+        }
     }
+
+        
 
     void ActivateTurnLeftAndRightWalls(GameObject floor)
     {
-        // Activar las paredes izquierda y derecha
-        floor.transform.Find("TurnWallLeft").gameObject.SetActive(true);
-        floor.transform.Find("TurnWallRight").gameObject.SetActive(true);
-    }
+        // Probabilidad de activar una pared
+        float chance = Random.Range(0.0f, 1.0f);
 
-    void ActivateLongWall(GameObject floor)
-    {
-        
-        floor.transform.Find("LongWall").gameObject.SetActive(true);
+        if (chance <= 0.5f) // 50% de generar paredes normales giradas
+        {
+            // Activar las paredes izquierda y derecha
+            floor.transform.Find("TurnWallLeft").gameObject.SetActive(true);
+            floor.transform.Find("TurnWallRight").gameObject.SetActive(true);
+        }
+        else // 50% de generar paredes altas giradas
+        {
+            // Activar las paredes izquierda y derecha altas
+            floor.transform.Find("TurnTallWallLeft").gameObject.SetActive(true);
+            floor.transform.Find("TurnTallWallRight").gameObject.SetActive(true);
+        }
     }
 
     void ActivatePotentialCoin(GameObject floor)
@@ -332,6 +373,13 @@ public class Player : MonoBehaviour
         floor.transform.Find("TurnWallCenter").gameObject.SetActive(false);
         floor.transform.Find("TurnWallRight").gameObject.SetActive(false);
         floor.transform.Find("LongWall").gameObject.SetActive(false);
+        floor.transform.Find("TurnLongWall").gameObject.SetActive(false);
+        floor.transform.Find("TallWallLeft").gameObject.SetActive(false);
+        floor.transform.Find("TallWallRight").gameObject.SetActive(false);
+        floor.transform.Find("TallWallCenter").gameObject.SetActive(false);
+        floor.transform.Find("TurnTallWallLeft").gameObject.SetActive(false);
+        floor.transform.Find("TurnTallWallRight").gameObject.SetActive(false);
+        floor.transform.Find("TurnTallWallCenter").gameObject.SetActive(false);
     }
 
     void DeactivateAllCoins(GameObject floor)
