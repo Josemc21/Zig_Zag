@@ -27,8 +27,11 @@ public class Player : MonoBehaviour
     public GameObject GameOverScreen;
     public GameObject GameWonScreen;
 
-    //Floor Variables & Objects
+    // Floor Variables & Objects
     public GameObject Floor;
+    public GameObject LastFloor;
+    public GameObject CurrentFloor;
+    
     
     void Start()
     {
@@ -69,6 +72,7 @@ public class Player : MonoBehaviour
             {
                 transform.Translate(Vector3.forward * Time.deltaTime * speedSide * -1);
             }
+
         }
 
         // Jump Input Control
@@ -92,7 +96,7 @@ public class Player : MonoBehaviour
         // Player Restart On Death
         if (this.transform.position.y < -2) 
         {
-            this.transform.position = new Vector3(this.transform.position.x, 0.515f, this.transform.position.z);
+            this.transform.position = new Vector3(LastFloor.transform.position.x, 0.515f, LastFloor.transform.position.z);
             if (TotalLives > 0) 
             { 
                 TotalLives--;
@@ -111,7 +115,7 @@ public class Player : MonoBehaviour
         }
 
         // Game Won Screen
-        if (TotalScore >= 300 && !GameOverScreen.gameObject.activeSelf) 
+        if (TotalScore >= 1500 && !GameOverScreen.gameObject.activeSelf) 
         { 
             GameWonScreen.SetActive(true);  
             Invoke("DelayedLevelLoader", 5f);    
@@ -141,12 +145,20 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Floor")
+        if (other.gameObject.tag == "ObstacleFloor")
         {
+            playerGrounded = true;
+        }
+        else if (other.gameObject.tag == "Floor")
+        {
+            LastFloor = CurrentFloor.gameObject;
+            CurrentFloor = other.gameObject;
             playerGrounded = true;
         }
     }
 
+    // Score Up when touch Coin
+    void OnTriggerEnter(Collider other) { if(other.gameObject.CompareTag("Moneda")) { TotalScore += 20; } }
     void DelayedLevelLoader() { SceneManager.LoadScene("Main Menu"); }
     void DelayedLevelRestart() { SceneManager.LoadScene("Level 1"); }
 }
