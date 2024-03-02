@@ -12,8 +12,8 @@ public class Player : MonoBehaviour
     public new Camera camera;
 
     // Player Variables & Objects
-    private float speedForward = 7f;
-    private float speedSide = 7f;
+    private float speedForward = 7.0f;
+    private float speedSide = 5.0f;
     private float xValue, zValue;
     private bool isGoingRight = false;
     private bool playerGrounded = true;
@@ -48,30 +48,31 @@ public class Player : MonoBehaviour
         if (!isGoingRight)
         {
             // Forward Path Active 
-            transform.Translate(Vector3.forward * speedForward * Time.deltaTime);
+            transform.Translate(Vector3.forward * speedForward * Time.deltaTime, Space.Self);
 
             // Side Movement Control
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.Translate(Vector3.left * Time.deltaTime * speedSide);
+                transform.Translate(Vector3.left * Time.deltaTime * speedSide, Space.Self);
             }
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
-                transform.Translate(Vector3.left * Time.deltaTime * speedSide * -1);
+                transform.Translate(Vector3.left * Time.deltaTime * speedSide * -1, Space.Self);
             }
         } else {
             // Side Path Active
-            transform.Translate(Vector3.left * speedForward * Time.deltaTime * -1);
+            transform.Translate(Vector3.left * speedForward * Time.deltaTime * -1, Space.Self);
 
             // Side Movement Control
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.Translate(Vector3.forward * Time.deltaTime * speedSide);
+                transform.Translate(Vector3.forward * Time.deltaTime * speedSide, Space.Self);
             }
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
-                transform.Translate(Vector3.forward * Time.deltaTime * speedSide * -1);
+                transform.Translate(Vector3.forward * Time.deltaTime * speedSide * -1, Space.Self);
             }
+
         }
 
         // Jump Input Control
@@ -89,6 +90,13 @@ public class Player : MonoBehaviour
         { 
             transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
             Debug.Log("Y fixed"); 
+        }
+
+        // Player Rotation on Turn Fix
+        if (transform.localRotation.x != 0 || transform.localRotation.y != 0 || transform.localRotation.z != 0)
+        {
+            this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+            Debug.Log("Rotacion ajustada");
         }
 
         // --------------------- Player UI and Lives System --------------------- //
@@ -156,8 +164,26 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Score Up when touch Coin
-    void OnTriggerEnter(Collider other) { if(other.gameObject.tag == "Moneda") { TotalScore += 20; } }
+    // Trigger Behaviours
+    void OnTriggerEnter(Collider other) 
+    { 
+        if(other.gameObject.CompareTag("Moneda")) 
+        { 
+            TotalScore += 20; 
+        }
+
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            this.transform.position = new Vector3(LastFloor.transform.position.x, 0.515f, LastFloor.transform.position.z);
+            if (TotalLives > 0) 
+            { 
+                TotalLives--;
+                Lives.text = "LIVES = " + TotalLives;
+            } 
+            else { Lives.text = "LIVES = 💀"; }
+            if (TotalScore - 100 < 0) { TotalScore = 0; } else { TotalScore -= 100; }
+        } 
+    }
     void DelayedLevelLoader() { SceneManager.LoadScene("Main Menu"); }
     void DelayedLevelRestart() { SceneManager.LoadScene("Level 1"); }
 }

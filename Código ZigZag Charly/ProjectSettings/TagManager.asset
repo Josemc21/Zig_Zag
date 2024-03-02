@@ -7,6 +7,7 @@ TagManager:
   - Floor
   - Moneda
   - ObstacleFloor
+  - Obstacle
   layers:
   - Default
   - TransparentFX

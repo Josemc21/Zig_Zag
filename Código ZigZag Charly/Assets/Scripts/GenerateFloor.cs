@@ -88,32 +88,32 @@ public class GenerateFloor : MonoBehaviour
         {
             if (random < 0.2f)
             {
-                if(Floor.gameObject.transform.Find("Coin Left"))
+                if(Floor.transform.Find("Coin Left"))
                 {
-                    Floor.gameObject.transform.Find("Coin Left").gameObject.SetActive(true);
+                    Floor.transform.Find("Coin Left").gameObject.SetActive(true);
                 }
             }
             else if (random > 0.2f && random < 0.4f)
             {
-                if(Floor.gameObject.transform.Find("Coin Center"))
+                if(Floor.transform.Find("Coin Center"))
                 {
-                    Floor.gameObject.transform.Find("Coin Center").gameObject.SetActive(true);
+                    Floor.transform.Find("Coin Center").gameObject.SetActive(true);
                 }
             }
             else if (random > 0.4f && random < 0.6f)
             {
-                if(Floor.gameObject.transform.Find("Coin Right"))
+                if(Floor.transform.Find("Coin Right"))
                 {
-                    Floor.gameObject.transform.Find("Coin Right").gameObject.SetActive(true);
+                    Floor.transform.Find("Coin Right").gameObject.SetActive(true);
                 }
             }
         }
         else {
             if (random < 0.15f)
             {
-                if(Floor.gameObject.transform.Find("Coin Center"))
+                if(Floor.transform.Find("Coin Center"))
                 {
-                    Floor.gameObject.transform.Find("Coin Center").gameObject.SetActive(true);
+                    Floor.transform.Find("Coin Center").gameObject.SetActive(true);
                 }
             }
         }
