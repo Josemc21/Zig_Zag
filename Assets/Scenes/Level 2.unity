@@ -3287,7 +3287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &390958750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3322,7 +3322,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2207cc8c8c6cdd94bbc187d63224c199, type: 2}
+  - {fileID: 2100000, guid: c6130ef42fdb72b4aa62d2eec195c11c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16936,6 +16936,10 @@ MonoBehaviour:
   Floor: {fileID: 2097781019}
   LastFloor: {fileID: 0}
   CurrentFloor: {fileID: 0}
+  prefabObjeto: {fileID: 0}
+  WallImageLevel1: {fileID: 2100000, guid: 9dfac487aaf95c34a93695ccf1b2ea89, type: 2}
+  WallImageLevel2: {fileID: 2100000, guid: 005ed88f1ae29574b8451d4b2c478d3b, type: 2}
+  WallImageLevel3: {fileID: 2100000, guid: 55e254667d2e62845a3bc8dcf0fa4e58, type: 2}
 --- !u!114 &2131565925
 MonoBehaviour:
   m_ObjectHideFlags: 0

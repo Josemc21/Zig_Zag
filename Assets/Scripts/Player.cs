@@ -31,6 +31,12 @@ public class Player : MonoBehaviour
     public GameObject Floor;
     public GameObject LastFloor;
     public GameObject CurrentFloor;
+
+    // Obstacle Variables & Objects
+    public GameObject prefabObjeto; // Prefab al que se le cambiará el material
+    public Material WallImageLevel1; // Imagen nivel 1 que se asignará al material del prefab
+    public Material WallImageLevel2; // Imagen nivel 2 que se asignará al material del prefab
+    public Material WallImageLevel3; // Imagen nivel 3 que se asignará al material del prefab
     
     
     void Start()
@@ -189,6 +195,7 @@ public class Player : MonoBehaviour
             {
                 TotalScore += 1.0f * Time.fixedDeltaTime;
             } 
+            CambiarMaterial(WallImageLevel1);
             Score.text = "" + ((int)TotalScore);
         } 
         else if (SceneManager.GetActiveScene().name == "Level 2")
@@ -197,6 +204,7 @@ public class Player : MonoBehaviour
             {
                 TotalScore += 1.0f * Time.fixedDeltaTime;
             } 
+            CambiarMaterial(WallImageLevel2);
             Score.text = "" + ((int)TotalScore);
         }
         else if (SceneManager.GetActiveScene().name == "Level 3")
@@ -205,6 +213,7 @@ public class Player : MonoBehaviour
             {
                 TotalScore += 1.0f * Time.fixedDeltaTime;
             } 
+            CambiarMaterial(WallImageLevel3);
             Score.text = "" + ((int)TotalScore);
         }  
     }
@@ -257,6 +266,17 @@ public class Player : MonoBehaviour
             if (TotalScore - 100 < 0) { TotalScore = 0; } else { TotalScore -= 100; }
         } 
     }
+
+    // Función para cambiar el material del prefab por otra imagen
+    public void CambiarMaterial(Material nuevoMaterial)
+    {
+        // Obtener el componente Renderer del prefab
+        Renderer rendererPrefab = prefabObjeto.GetComponent<Renderer>();
+
+        // Asignar el nuevo material al componente Renderer del prefab
+        rendererPrefab.material = nuevoMaterial;
+    }
+
     void DelayedLevel2Loader() { SceneManager.LoadScene("Level 2"); }
     void DelayedLevel3Loader() { SceneManager.LoadScene("Level 3"); }
     void DelayedMenuLoader() { SceneManager.LoadScene("Main Menu"); }
