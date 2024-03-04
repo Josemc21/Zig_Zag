@@ -18,9 +18,6 @@ public class CoinCollectSFX : MonoBehaviour
     {      
         if (other.gameObject.CompareTag("Moneda"))
         {
-            //TotalMonedas++;
-            //Contador.text = "Monedas = " + TotalMonedas";
-
             // Reproducir el sonido de la moneda
             audioSource.Play();
             other.gameObject.SetActive(false);

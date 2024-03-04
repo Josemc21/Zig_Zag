@@ -12,8 +12,8 @@ public class Player : MonoBehaviour
     public new Camera camera;
 
     // Player Variables & Objects
-    private float speedForward = 7f;
-    private float speedSide = 7f;
+    private float speedForward;
+    private float speedSide;
     private float xValue, zValue;
     private bool isGoingRight = false;
     private bool playerGrounded = true;
@@ -38,6 +38,22 @@ public class Player : MonoBehaviour
         offSet = camera.transform.position;
         rb = GetComponent<Rigidbody>();
         InitialFloor();
+
+        if (SceneManager.GetActiveScene().name == "Level 1")
+        {
+            speedForward = 7.0f;
+            speedSide = 5.0f;
+        } 
+        else if (SceneManager.GetActiveScene().name == "Level 2")
+        {
+            speedForward = 8.0f;
+            speedSide = 5.7f;
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            speedForward = 10.0f;
+            speedSide = 7.1f;
+        }
     }
 
     void Update()
@@ -48,29 +64,29 @@ public class Player : MonoBehaviour
         if (!isGoingRight)
         {
             // Forward Path Active 
-            transform.Translate(Vector3.forward * speedForward * Time.deltaTime);
+            transform.Translate(Vector3.forward * speedForward * Time.deltaTime, Space.Self);
 
             // Side Movement Control
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.Translate(Vector3.left * Time.deltaTime * speedSide);
+                transform.Translate(Vector3.left * Time.deltaTime * speedSide, Space.Self);
             }
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
-                transform.Translate(Vector3.left * Time.deltaTime * speedSide * -1);
+                transform.Translate(Vector3.left * Time.deltaTime * speedSide * -1, Space.Self);
             }
         } else {
             // Side Path Active
-            transform.Translate(Vector3.left * speedForward * Time.deltaTime * -1);
+            transform.Translate(Vector3.left * speedForward * Time.deltaTime * -1, Space.Self);
 
             // Side Movement Control
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.Translate(Vector3.forward * Time.deltaTime * speedSide);
+                transform.Translate(Vector3.forward * Time.deltaTime * speedSide, Space.Self);
             }
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
-                transform.Translate(Vector3.forward * Time.deltaTime * speedSide * -1);
+                transform.Translate(Vector3.forward * Time.deltaTime * speedSide * -1, Space.Self);
             }
 
         }
@@ -78,7 +94,7 @@ public class Player : MonoBehaviour
         // Jump Input Control
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) && playerGrounded)
         {   
-            rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(0, 6, 0), ForceMode.Impulse);
             playerGrounded = false;
         }
         
@@ -90,6 +106,13 @@ public class Player : MonoBehaviour
         { 
             transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
             Debug.Log("Y fixed"); 
+        }
+
+        // Player Rotation on Turn Fix
+        if (transform.localRotation.x != 0 || transform.localRotation.y != 0 || transform.localRotation.z != 0)
+        {
+            this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+            Debug.Log("Rotacion ajustada");
         }
 
         // --------------------- Player UI and Lives System --------------------- //
@@ -108,25 +131,82 @@ public class Player : MonoBehaviour
         }
 
         // GameOver Screen
-        if (TotalLives == 0 && !GameWonScreen.gameObject.activeSelf) 
-        { 
-            GameOverScreen.SetActive(true);  
-            Invoke("DelayedLevelRestart", 5f);    
+        if (SceneManager.GetActiveScene().name == "Level 1")
+        {
+            if (TotalLives == 0 && !GameWonScreen.gameObject.activeSelf) 
+            { 
+                GameOverScreen.SetActive(true);  
+                Invoke("DelayedLevel1Restart", 5f);    
+            }
+        } 
+        else if (SceneManager.GetActiveScene().name == "Level 2")
+        {
+            if (TotalLives == 0 && !GameWonScreen.gameObject.activeSelf) 
+            { 
+                GameOverScreen.SetActive(true);  
+                Invoke("DelayedLevel2Restart", 5f);    
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            if (TotalLives == 0 && !GameWonScreen.gameObject.activeSelf) 
+            { 
+                GameOverScreen.SetActive(true);  
+                Invoke("DelayedLevel3Restart", 5f);    
+            }
         }
 
         // Game Won Screen
-        if (TotalScore >= 1500 && !GameOverScreen.gameObject.activeSelf) 
-        { 
-            GameWonScreen.SetActive(true);  
-            Invoke("DelayedLevelLoader", 5f);    
+        if (SceneManager.GetActiveScene().name == "Level 1")
+        {
+            if (TotalScore >= 1500 && !GameOverScreen.gameObject.activeSelf) 
+            { 
+                GameWonScreen.SetActive(true);  
+                Invoke("DelayedLevel2Loader", 1.0f);    
+            }
+        } 
+        else if (SceneManager.GetActiveScene().name == "Level 2")
+        {
+            if (TotalScore >= 2000 && !GameOverScreen.gameObject.activeSelf) 
+            { 
+                GameWonScreen.SetActive(true);  
+                Invoke("DelayedLevel3Loader", 1.0f);    
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            if (TotalScore >= 3000 && !GameOverScreen.gameObject.activeSelf) 
+            { 
+                GameWonScreen.SetActive(true);  
+                Invoke("DelayedMenuLoader", 1.0f);    
+            }
         }
 
         // Score Increaser
-        if (!GameOverScreen.activeSelf || TotalScore < 300) 
+        if (SceneManager.GetActiveScene().name == "Level 1")
         {
-            TotalScore += 1.0f * Time.fixedDeltaTime;
+            if (!GameOverScreen.activeSelf && TotalScore < 1500 && !GameWonScreen.activeSelf) 
+            {
+                TotalScore += 1.0f * Time.fixedDeltaTime;
+            } 
+            Score.text = "" + ((int)TotalScore);
         } 
-        Score.text = "" + ((int)TotalScore);
+        else if (SceneManager.GetActiveScene().name == "Level 2")
+        {
+            if (!GameOverScreen.activeSelf && TotalScore < 2000 && !GameWonScreen.activeSelf) 
+            {
+                TotalScore += 1.0f * Time.fixedDeltaTime;
+            } 
+            Score.text = "" + ((int)TotalScore);
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            if (!GameOverScreen.activeSelf && TotalScore < 3000 && !GameWonScreen.activeSelf) 
+            {
+                TotalScore += 1.0f * Time.fixedDeltaTime;
+            } 
+            Score.text = "" + ((int)TotalScore);
+        }  
     }
 
     void InitialFloor()
@@ -157,8 +237,30 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Score Up when touch Coin
-    void OnTriggerEnter(Collider other) { if(other.gameObject.CompareTag("Moneda")) { TotalScore += 20; } }
-    void DelayedLevelLoader() { SceneManager.LoadScene("Main Menu"); }
-    void DelayedLevelRestart() { SceneManager.LoadScene("Level 1"); }
+    // Trigger Behaviours
+    void OnTriggerEnter(Collider other) 
+    { 
+        if(other.gameObject.CompareTag("Moneda")) 
+        { 
+            TotalScore += 20; 
+        }
+
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            this.transform.position = new Vector3(LastFloor.transform.position.x, 0.515f, LastFloor.transform.position.z);
+            if (TotalLives > 0) 
+            { 
+                TotalLives--;
+                Lives.text = "LIVES = " + TotalLives;
+            } 
+            else { Lives.text = "LIVES = 💀"; }
+            if (TotalScore - 100 < 0) { TotalScore = 0; } else { TotalScore -= 100; }
+        } 
+    }
+    void DelayedLevel2Loader() { SceneManager.LoadScene("Level 2"); }
+    void DelayedLevel3Loader() { SceneManager.LoadScene("Level 3"); }
+    void DelayedMenuLoader() { SceneManager.LoadScene("Main Menu"); }
+    void DelayedLevel1Restart() { SceneManager.LoadScene("Level 1"); }
+    void DelayedLevel2Restart() { SceneManager.LoadScene("Level 2"); }
+    void DelayedLevel3Restart() { SceneManager.LoadScene("Level 3"); }
 }
