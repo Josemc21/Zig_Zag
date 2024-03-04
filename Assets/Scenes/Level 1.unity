@@ -16936,7 +16936,7 @@ MonoBehaviour:
   Floor: {fileID: 2097781019}
   LastFloor: {fileID: 0}
   CurrentFloor: {fileID: 0}
-  prefabObjeto: {fileID: 0}
+  prefabObjeto: {fileID: 5690692936462303404, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
   WallImageLevel1: {fileID: 2100000, guid: 9dfac487aaf95c34a93695ccf1b2ea89, type: 2}
   WallImageLevel2: {fileID: 2100000, guid: 005ed88f1ae29574b8451d4b2c478d3b, type: 2}
   WallImageLevel3: {fileID: 2100000, guid: 55e254667d2e62845a3bc8dcf0fa4e58, type: 2}
