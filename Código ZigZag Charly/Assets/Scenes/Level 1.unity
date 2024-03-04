@@ -11913,7 +11913,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "HAS GANADO\n\nEL JUEGO SE REINICIAR\xC1 EN 5 SEGUNDOS"
+  m_Text: "HAS GANADO\n\nEL SIGUIENTE NIVEL COMENZAR\xC1 EN 5 SEGUNDOS"
 --- !u!222 &1523758591
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12068,7 +12068,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
