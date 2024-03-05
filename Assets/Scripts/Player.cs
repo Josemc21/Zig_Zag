@@ -161,7 +161,7 @@ public class Player : MonoBehaviour
             if (TotalScore >= 1500 && !GameOverScreen.gameObject.activeSelf) 
             { 
                 GameWonScreen.SetActive(true);  
-                Invoke("DelayedLevel2Loader", 1.0f);    
+                Invoke("DelayedLevel2Loader", 5f);    
             }
         } 
         else if (SceneManager.GetActiveScene().name == "Level 2")
@@ -169,7 +169,7 @@ public class Player : MonoBehaviour
             if (TotalScore >= 2000 && !GameOverScreen.gameObject.activeSelf) 
             { 
                 GameWonScreen.SetActive(true);  
-                Invoke("DelayedLevel3Loader", 1.0f);    
+                Invoke("DelayedLevel3Loader", 5f);    
             }
         }
         else if (SceneManager.GetActiveScene().name == "Level 3")
@@ -177,7 +177,7 @@ public class Player : MonoBehaviour
             if (TotalScore >= 3000 && !GameOverScreen.gameObject.activeSelf) 
             { 
                 GameWonScreen.SetActive(true);  
-                Invoke("DelayedMenuLoader", 1.0f);    
+                Invoke("DelayedMenuLoader", 5f);    
             }
         }
 

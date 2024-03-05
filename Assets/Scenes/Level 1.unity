@@ -3682,11 +3682,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425702365}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &512799108 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2472727233819457388, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
-  m_PrefabInstance: {fileID: 1873789068}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &531363406
 GameObject:
   m_ObjectHideFlags: 0
@@ -4365,15 +4360,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00000011920929
+      objectReference: {fileID: 0}
     - target: {fileID: 6070054878242376243, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
       propertyPath: m_Name
       value: Wall Cube Nivel 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8366326824461214620, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfac487aaf95c34a93695ccf1b2ea89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+--- !u!4 &584330930 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+  m_PrefabInstance: {fileID: 584330929}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &584581570
 GameObject:
   m_ObjectHideFlags: 0
@@ -4471,11 +4479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b60197ec33826f4d982ea9566c84b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &598421847 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2472727233819457388, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
-  m_PrefabInstance: {fileID: 1821235722}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &632891238
 GameObject:
   m_ObjectHideFlags: 0
@@ -6446,9 +6449,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1710405727}
   - {fileID: 866859675}
   - {fileID: 1852407191}
+  - {fileID: 859427383}
   m_Father: {fileID: 2145300071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &820738043
@@ -6809,15 +6812,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.3750001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.00000023841858
+      objectReference: {fileID: 0}
     - target: {fileID: 6070054878242376243, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
       propertyPath: m_Name
       value: Wall Cube Nivel 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8366326824461214620, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfac487aaf95c34a93695ccf1b2ea89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+--- !u!4 &859427383 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+  m_PrefabInstance: {fileID: 859427382}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &859517803
 GameObject:
   m_ObjectHideFlags: 0
@@ -11232,11 +11252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b60197ec33826f4d982ea9566c84b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1497671596 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2472727233819457388, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
-  m_PrefabInstance: {fileID: 1827014042}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1500043015
 GameObject:
   m_ObjectHideFlags: 0
@@ -11757,9 +11772,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 512799108}
   - {fileID: 837490515}
   - {fileID: 1177384875}
+  - {fileID: 1873789069}
   m_Father: {fileID: 1578604883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1532073565
@@ -11783,11 +11798,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.5, y: 1.5, z: 0.25}
   m_Center: {x: 1.25, y: 0.5, z: 0}
---- !u!4 &1539767550 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2472727233819457388, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
-  m_PrefabInstance: {fileID: 1674855323}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1544059060
 GameObject:
   m_ObjectHideFlags: 0
@@ -12102,9 +12112,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 598421847}
   - {fileID: 425702366}
   - {fileID: 906164241}
+  - {fileID: 1821235723}
   m_Father: {fileID: 2112604510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1576307490
@@ -12588,15 +12598,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.2499999
+      objectReference: {fileID: 0}
     - target: {fileID: 6070054878242376243, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
       propertyPath: m_Name
       value: Wall Cube Nivel 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8366326824461214620, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfac487aaf95c34a93695ccf1b2ea89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+--- !u!4 &1674855324 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+  m_PrefabInstance: {fileID: 1674855323}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1681093051
 GameObject:
   m_ObjectHideFlags: 0
@@ -12903,11 +12926,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1701746857}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1710405727 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2472727233819457388, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
-  m_PrefabInstance: {fileID: 859427382}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1722788932
 GameObject:
   m_ObjectHideFlags: 0
@@ -13537,9 +13555,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2548643413170901742}
   - {fileID: 1621266560}
   - {fileID: 1115389283}
+  - {fileID: 584330930}
   m_Father: {fileID: 168093428}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1754501710
@@ -13741,9 +13759,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1497671596}
   - {fileID: 1735421088}
   - {fileID: 2017140205}
+  - {fileID: 1827014043}
   m_Father: {fileID: 785417250}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1791096337
@@ -14015,15 +14033,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.00000011920929
+      objectReference: {fileID: 0}
     - target: {fileID: 6070054878242376243, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
       propertyPath: m_Name
       value: Wall Cube Nivel 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8366326824461214620, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfac487aaf95c34a93695ccf1b2ea89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+--- !u!4 &1821235723 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+  m_PrefabInstance: {fileID: 1821235722}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1827014042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14076,11 +14111,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Cube Nivel 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8366326824461214620, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfac487aaf95c34a93695ccf1b2ea89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+--- !u!4 &1827014043 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+  m_PrefabInstance: {fileID: 1827014042}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1842213106
 GameObject:
   m_ObjectHideFlags: 0
@@ -14448,11 +14492,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Cube Nivel 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8366326824461214620, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfac487aaf95c34a93695ccf1b2ea89, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+--- !u!4 &1873789069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3768266249871691972, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
+  m_PrefabInstance: {fileID: 1873789068}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1876250973
 GameObject:
   m_ObjectHideFlags: 0
@@ -14483,9 +14536,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1539767550}
   - {fileID: 547888006}
   - {fileID: 1467651292}
+  - {fileID: 1674855324}
   m_Father: {fileID: 983374967}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1876250975
@@ -16673,10 +16726,6 @@ MonoBehaviour:
   Floor: {fileID: 2097781019}
   LastFloor: {fileID: 0}
   CurrentFloor: {fileID: 0}
-  prefabObjeto: {fileID: 5690692936462303404, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
-  WallImageLevel1: {fileID: 2100000, guid: 9dfac487aaf95c34a93695ccf1b2ea89, type: 2}
-  WallImageLevel2: {fileID: 2100000, guid: 005ed88f1ae29574b8451d4b2c478d3b, type: 2}
-  WallImageLevel3: {fileID: 2100000, guid: 55e254667d2e62845a3bc8dcf0fa4e58, type: 2}
 --- !u!114 &2131565925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16993,11 +17042,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145628149}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &2548643413170901742 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2472727233819457388, guid: fa54900633b01504ba703af896ee1a0d, type: 3}
-  m_PrefabInstance: {fileID: 584330929}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
