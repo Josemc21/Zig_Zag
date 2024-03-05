@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
                 TotalLives--;
                 Lives.text = "LIVES = " + TotalLives;
             } 
-            else { Lives.text = "LIVES = 💀"; }
+            else { Lives.text = "LIVES = X"; }
             if (TotalScore - 100 < 0) { TotalScore = 0; } else { TotalScore -= 100; }
             
         }
@@ -252,7 +252,7 @@ public class Player : MonoBehaviour
                 TotalLives--;
                 Lives.text = "LIVES = " + TotalLives;
             } 
-            else { Lives.text = "LIVES = 💀"; }
+            else { Lives.text = "LIVES = X"; }
             if (TotalScore - 100 < 0) { TotalScore = 0; } else { TotalScore -= 100; }
         } 
     }
